@@ -20,4 +20,15 @@ dataset$Purchased = factor(dataset$Purchased,
                          levels = c('Yes','No'),
                          labels = c(1,0))
 
+# install.packages('caTools')
+library(caTools)
+# seed value to split
+set.seed(123)
+# splitRation is ration for training set
+# return a list contain True/False means split, so for 10 data, 8 true and 2 false
+split = sample.split(dataset$Purchased, SplitRatio = 0.8)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
 
+training_set[,2:3] = scale(training_set[,2:3])
+test_set[,2:3] = scale(test_set[,2:3])
